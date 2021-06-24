@@ -1,47 +1,31 @@
 \documentclass[journal]{IEEEtran}
-
-% *** CITATION PACKAGES ***
 \usepackage[style=ieee]{biblatex}
 \bibliography{example.bib}
 
-% *** MATH PACKAGES ***
 \usepackage{amsmath}
 \usepackage{authblk}
 \usepackage{amssymb}
 \usepackage{url}
-\usepackage{graphicx}  %needed to include png, eps figures
-\usepackage{float}  % used to fix location of images i.e.\begin{figure}[H]
+\usepackage{graphicx}
+\usepackage{float}
 
 \begin{document}
+\title{Hybrid Encryption: A Brief Introduction}
 
-% paper title
-\title{Hybrid Encryption : A Brief Introduction}
-
-% author names
 \author[1]{Saswat Das}%\affil[1]{School of Mathematical Sciences\\NISER, Bhubaneswar}
 \author[2]{Sai Sriharsha Indukuri}\affil[1,2]{School of Mathematical Sciences\\NISER, Bhubaneswar}
-\author[3]{Ashish Panigrahi}\affil[3]{School of Physical Sciences\\NISER, Bhubaneswar}% <-this % stops a space
+\author[3]{Ashish Panigrahi}\affil[3]{School of Physical Sciences\\NISER, Bhubaneswar}%
 
-% make the title area
 \maketitle
 
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 
 \section{Introduction }
-Include a title and one or two paragraphs describing what you plan to do. Tell what interviews, site visits, or other activity you plan. Be specific if you can. Include  one good reference you plan to used. This is an example of how to include a citation.
 
-\section{Background}
-Give a background on your topic. Include references.
-
-\section{Results}
-Results of your interviews or observations. Use information and/or quotes from your interview or observations.
-
-\section{Discussion}
-Your comments or evaluation of interview or observations
-
-\section{Summary}
-Summary of your paper.
+\include{intro.tex}
+\include{el-gamal.tex}
+\include{aes_rsa_ssl.tex}
 
 \appendix
 The Appendix should contain the name, position, and company (or other relevant information) for the person(s) you interviewed or the places you visited.
