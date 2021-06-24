@@ -1,1 +1,14 @@
 *.pdf
+*-blx.bib
+*.aux
+*.log
+*.blg
+*latexmk
+*.fls
+*.out
+*xml
+*gz
+*bcf
+*bbl
+*run*
+*toc
