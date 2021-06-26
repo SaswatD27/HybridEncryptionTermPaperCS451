@@ -16,7 +16,7 @@ So the natural question is whether we can combine the efficiency of symmetric ke
 \subsection{Basic Introduction to Hybrid Encryption}
 So what we do with hybrid encryption is this - we use a symmetric key encryption scheme to encrypt the message itself, and then we use an asymmetric key encryption scheme to encrypt the key used in the symmetric key encryption part earlier. The former component of hybrid encryption with symmetric key encryption is called the \textit{data encapsulation mechanism}, or DEM for short, and the latter with asymmetric encryption is called the \textit{key encapsulation mechanism}, or KEM for short.\cite{kuro_he}
 
-This is implemented in the following way, given that the sender is named Alice and the receiver is named Bob. (This has been described in great and more precise detail by Cramer and Shoup (2003)\cite{cryptoeprint:2001:108}
+This is implemented in the following way, given that the sender is named Alice and the receiver is named Bob. (This has been described in great and more precise detail by Cramer and Shoup (2003)\cite{cryptoeprint:2001:108})
 \begin{enumerate}
 \item Alice obtains Bob's public key;
 \item \textbf{DEM:} She then produces a fresh symmetric key $k_\text{symm}$ and then encrypts the message $m$ she wants to send using $k_\text{symm}$ to obtain a ciphertext $\chi$;
