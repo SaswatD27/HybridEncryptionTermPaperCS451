@@ -1,3 +1,7 @@
-\section{Introduction}
+\section{Introduction and Motivation}
+For quite some time leading up to the present, symmetric and asymmetric key cryptosystems have been used extensively for securing communications in networks and among various parties; and both have their own merits and drawbacks. We will not go deep down into the details of these types of cryptosystems, but instead briefly discuss those to set the stage for the object of our attention - hybrid encryption.
 
+In the case of symmetric key encryption, the sender (Alice) and receiver (Bob) share the same key (and therefore must share the key somehow to enable secure connection and decryption of the ciphertext by the receiver) that only they are privy to, and the sender uses said key to encrypt the message and sends the ciphertext to the receiver, who decrypts it with the aid of his knowledge of the secret key. Any third party/adversary would not be able to obtain any information about the message being sent by looking at the ciphertext, if this is implemented properly.\cite{smirnoff_turner_2019}
+
+Symmetric key encryption is often faster and more efficient than assymmetric key encryption, and therefore it is preferable to use the former for encrypting large volumes of data, though it has severe drawbacks, viz. 
 \label{sec:intro}
