@@ -1,3 +1,27 @@
-\section{SSL}
+\section{Secure Sockets Layer (SSL)}
 
-\label{sec:aes}
+One of the most common applications of hybrid encryption is the SSL protocol.
+
+Secure Sockets Layer (SSL) is a security protocol used to establish an encrypted link between a server and a client (a website and a user's web browser for example). It allows private information like social security numbers, credit card numbers and email passwords to be transmitted securely from the client to the server.
+
+Naturally, an encryption scheme to establish a link between a browser and a website's server must be as time efficient as possible. So asymmetric encryption doesn't seem to be a viable scheme to implement in such a setting, given its relatively high computation time. On the other hand, asymmetric encryption schemes are definitely more secure and this is highly desirable in an internet setting as users are often required to input sensitive information on various websites. This is precisely the reason hybrid encryption is used by SSL: we want a scheme that is both time efficient and highly secure.
+
+\subsection{The Handshake}
+
+
+\cite{digicert}When a browser attempts to access a website that is secured by SSL, the browser and the web server establish an SSL connection using a process called an “SSL Handshake”(the handshake, in fact, is invisible to the user and happens instantaneously).
+
+The Handshake:
+
+1. The browser connects to a web server secured with SSL and requests the sever to identify itself.
+
+2. The server sends a copy of its SSL certificate, which includes the server's public key.
+
+3.Browser checks the certificate root against a list of trusted Certificate Authorities and that the certificate is unexpired, unrevoked, and that its common name is valid for the website that it is connecting to. If the browser trusts the website, it generates a random session key, encrypts it with the server's public key, and sends it back to the server.
+
+4.The server decrypts the encrypted random session key with its private key and sends an acknowledgement message, encrypted with the session key, back to the client's browser.
+
+5. The server and browser now communicate by encrypting messages with the session key.
+
+
+
