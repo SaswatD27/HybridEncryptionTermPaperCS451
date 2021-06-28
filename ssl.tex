@@ -9,19 +9,15 @@ Naturally, an encryption scheme to establish a link between a browser and a webs
 \subsection{The Handshake}
 
 
-\cite{digicert}When a browser attempts to access a website that is secured by SSL, the browser and the web server establish an SSL connection using a process called an “SSL Handshake”(the handshake, in fact, is invisible to the user and happens instantaneously).
+\cite{digicert}When a browser attempts to access a website that is secured by SSL, the browser and the web server establish an SSL connection using a process called an “SSL Handshake” (the handshake, in fact, is invisible to the user and happens instantaneously).
 
-The Handshake:
-
-1. The browser connects to a web server secured with SSL and requests the sever to identify itself.
-
-2. The server sends a copy of its SSL certificate, which includes the server's public key.
-
-3.Browser checks the certificate root against a list of trusted Certificate Authorities and that the certificate is unexpired, unrevoked, and that its common name is valid for the website that it is connecting to. If the browser trusts the website, it generates a random session key, encrypts it with the server's public key, and sends it back to the server.
-
-4.The server decrypts the encrypted random session key with its private key and sends an acknowledgement message, encrypted with the session key, back to the client's browser.
-
-5. The server and browser now communicate by encrypting messages with the session key.
-
+The handshake is implemented in the following way,
+\begin{enumerate}
+\item The browser connects to a web server secured with SSL and requests the sever to identify itself.
+\item The server sends a copy of its SSL certificate, which includes the server's public key.
+\item Browser checks the certificate root against a list of trusted Certificate Authorities and that the certificate is unexpired, unrevoked, and that its common name is valid for the website that it is connecting to. If the browser trusts the website, it generates a random session key, encrypts it with the server's public key, and sends it back to the server.
+\item The server decrypts the encrypted random session key with its private key and sends an acknowledgement message, encrypted with the session key, back to the client's browser.
+\item The server and browser now communicate by encrypting messages with the session key.
+\end{enumerate}
 
 
