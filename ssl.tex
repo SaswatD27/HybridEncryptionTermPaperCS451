@@ -1,8 +1,9 @@
 \section{Secure Sockets Layer (SSL)}
 One of the most common applications of hybrid encryption is the SSL protocol.
 
-\cite{mckinley}
-Secure Sockets Layer (SSL) is the communication protocol of choice for majority of the Internet community. The point of the protocol is to provide privacy and reliability between two communicating applications (user's browser and a website the user visits for example). The three main features of the SSL protocol are:
+Secure Sockets Layer (SSL) is the communication protocol of choice for majority of the Internet community. 
+The point of the protocol is to provide privacy and reliability between two communicating applications (user's browser and a website the user visits for example). 
+The three main features of the SSL protocol are \cite{mckinley}:
 
 \begin{enumerate}
     \item Privacy of transferred information through encryption
@@ -10,12 +11,19 @@ Secure Sockets Layer (SSL) is the communication protocol of choice for majority 
     \item Reliability and stability of the established secure connection
 \end{enumerate}
 
-The most common applications of SSL are in email and e-commerce transactions. In fact, every website whose URL contains \emph{HTTPS} (Secure HTTP) is secured by the SSL protocol.
+The most common applications of SSL are in email and e-commerce transactions. 
+In fact, every website whose URL contains \emph{HTTPS} (Secure HTTP) is secured by the SSL protocol.
 
-Naturally, an encryption scheme to establish a link between a user's web browser and a client website's server must be as time efficient as possible. So asymmetric encryption doesn't seem to be a viable scheme to implement in such a setting, given its relatively high computation time. On the other hand, asymmetric encryption schemes are definitely more secure and this is highly desirable in an internet setting as users are often required to input sensitive information on various websites. This is precisely the reason hybrid encryption is used by SSL: we want a scheme that is both time efficient and highly secure.
+Naturally, an encryption scheme to establish a link between a user's web browser and a client website's server must be as time efficient as possible. 
+So asymmetric encryption doesn't seem to be a viable scheme to implement in such a setting, given its relatively high computation time. 
+On the other hand, asymmetric encryption schemes are definitely more secure and this is highly desirable in an internet setting as users are often required to input sensitive information on various websites. 
+This is precisely the reason hybrid encryption is used by SSL: we want a scheme that is both time efficient and highly secure.
 
-\subsection{SSL Certificate} \cite{cloudflare_certificate}
-Websites that wish to be secured by SSL must first acquire an "SSL Certificate". This digital certificate is a means of verifying the ownership of the website and also prevents attackers from creating a fake version of the site, and gain user trust. It is issued to a website by a Certificate Authority (CA).A CA is a trusted third party, that generates and gives out SSL certificates. The certificate contains :
+\subsection{SSL Certificate} 
+Websites that wish to be secured by SSL must first acquire an "SSL Certificate". 
+This digital certificate is a means of verifying the ownership of the website and also prevents attackers from creating a fake version of the site, and gain user trust. 
+It is issued to a website by a Certificate Authority (CA). 
+A CA is a trusted third party, that generates and gives out SSL certificates. The certificate contains \cite{cloudflare_certificate}:
 \begin{enumerate}
     \item The domain name the certificate was issued for
     \item Organization or person it was issued to
@@ -24,13 +32,12 @@ Websites that wish to be secured by SSL must first acquire an "SSL Certificate".
     \item A public key(unique to the website) that will be used by clients of the website
 \end{enumerate}
 
+\subsection{The Handshake} 
 
-
-\subsection{The Handshake} \cite{digicert} \cite{cloudflare_handshake}
-
-When a browser attempts to access a website that is secured by SSL, the browser and the web server establish an SSL connection using a process called an “SSL Handshake” (the handshake, in fact, is invisible to the user and happens instantaneously).
+When a browser attempts to access a website that is secured by SSL, the browser and the web server establish an SSL connection using a process called an “SSL Handshake” (the handshake, in fact, is invisible to the user and happens instantaneously) \cite{digicert, cloudflare_handshake}.
 
 The outline of the handshake:
+
 \begin{enumerate}
 \item \textbf{Client Hello} The client's web browser initiates the handshake by sending a "hello" message to the server;
 \item \textbf{Server Hello} In reply to the client hello message, the server sends a message containing the server's SSL certificate;
@@ -39,4 +46,3 @@ The outline of the handshake:
 \item The server decrypts the key with its private key, encrypts a "finished message" using the session key and sends it to the client;
 \item Handshake is over and communication proceeds with use of the session key.
 \end{enumerate}
-
