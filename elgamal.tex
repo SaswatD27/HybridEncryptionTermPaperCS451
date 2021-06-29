@@ -78,20 +78,28 @@ A common reference is made to the \textit{discrete logarithm assumption}, which 
 
 \subsection{Description of El Gamal}
 
-After the necessary overview, we go ahead and describe the El Gamal encryption scheme whose security is closely related to the discrete logarithm assumption:
+We proceed to describe the El Gamal encryption scheme which is based on the Diffie-Hellman Key agreement scheme.
+
+\smallskip
+
+% After the necessary overview, we go ahead and describe the El Gamal encryption scheme whose security is closely related to the discrete logarithm assumption:
 
 \begin{algorithmic}
 \STATE {\textbf{Key generation} \textsc{Gen}($ 1^k $):}
 \STATE ($ \mathcal{G} $, $ q $, $ g $) $ \leftarrow \textsc{GroupGen} (1^k) $ 
 \STATE Choose $ x \leftarrow \mathbb{Z}_q $; set $ y = g^x $ 
 \STATE Output $ PK = ( \mathcal{G}, q, g, y) $ and $ SK = x $ 
-\end{algorithmic}
+\end{algorithmic} 
+
+\smallskip
 
 \begin{algorithmic}
 \STATE {\textbf{Encryption} $ \mathcal{E}_{pk} (m) $ (where $ m \in \mathcal{G} $)}
 \STATE Pick $ r \leftarrow \mathbb{Z}_q $ 
 \STATE Output $ \langle g^r, y^r m \rangle $ 
-\end{algorithmic}
+\end{algorithmic} 
+
+\smallskip
 
 \begin{algorithmic}
 \STATE {\textbf{Decryption} $ \mathcal{D}_{sk} (A, B) $}:
@@ -103,5 +111,8 @@ The correctness of the decryption process follows from,
 \begin{equation*}
 \frac{y^r m}{(g^r)^x} = \frac{y^r m}{(g^x)^r} = \frac{y^r m }{y^r} = m
 \end{equation*}
+
+\subsubsection{Security}
+
 
 \subsection{Decisional Diffie-Hellman (DDH) Assumption}
