@@ -7,29 +7,29 @@ However, before diving into the details of the scheme, we provide a brief overvi
 
 \subsection{An overview of Group theory}
 
-\cite{koocmsc} defines an Abelian group $ \mathcal{G} $ as
+\cite{koocmsc} defines an Abelian group $ \G $ as
 
 \begin{definition}
-An Abelian group $ \mathcal{G} $ is a finite set of elements along with an operation $ * $ such that:
+An Abelian group $ \G $ is a finite set of elements along with an operation $ * $ such that:
 
 \begin{itemize}
-    \item \textbf{Closure} For all $ a, b \in \mathcal{G} $ we have $ a * b \in \mathcal{G} $. We use $ a * b $ as $ ab $ henceforth for brevity.
-    \item \textbf{Associativity} $ \forall a, b, c \in \mathcal{G} $, $ (ab)c = a(bc) $.
-    \item \textbf{Commutativity} $ \forall a, b \in \mathcal{G} $, $ ab = ba $.
-    \item \textbf{Existence of identity} $ \exists $ an element $ 1 \in \mathcal{G} $ such that $ 1 * a = a $ $ \forall a \in \mathcal{G} $. This element is the identity of $ \mathcal{G} $.
-    \item \textbf{Inverse} $ \forall a \in \mathcal{G}$, $ \exists $ an element $ a^{-1} \in \mathcal{G} $ such that $ aa^{-1} = 1 $.
+    \item \textbf{Closure} For all $ a, b \in \G $ we have $ a * b \in \G $. We use $ a * b $ as $ ab $ henceforth for brevity.
+    \item \textbf{Associativity} $ \forall a, b, c \in \G $, $ (ab)c = a(bc) $.
+    \item \textbf{Commutativity} $ \forall a, b \in \G $, $ ab = ba $.
+    \item \textbf{Existence of identity} $ \exists $ an element $ 1 \in \G $ such that $ 1 * a = a $ $ \forall a \in \G $. This element is the identity of $ \G $.
+    \item \textbf{Inverse} $ \forall a \in \G$, $ \exists $ an element $ a^{-1} \in \G $ such that $ aa^{-1} = 1 $.
 \end{itemize}
 \end{definition}
 
 \begin{theorem}
-Let $\mathcal{G}$ be a finite Abelian group of order $ q $. Then $ a^q = 1 $ for all a $\in \mathcal{G}$.
+Let $\G$ be a finite Abelian group of order $ q $. Then $ a^q = 1 $ for all a $\in \G$.
 \end{theorem}
 
 \begin{proof}
 
 Taken from \cite{koocmsc}.
 
-Let us take $ a_1, \ldots a_q $ to be the elements of $\mathcal{G}$ and let $ a \in \mathcal{G} $ be some arbitrary element. We note that the sequence of elements $ aa_1, aa_2, \ldots , aa_q $ also contains exactly the elements of group $ \mathcal{G} $. Therefore:
+Let us take $ a_1, \ldots a_q $ to be the elements of $\G$ and let $ a \in \G $ be some arbitrary element. We note that the sequence of elements $ aa_1, aa_2, \ldots , aa_q $ also contains exactly the elements of group $ \G $. Therefore:
 
 \begin{equation*}
 \begin{split}
@@ -47,7 +47,7 @@ a^q = 1
 \end{proof}
 
 \begin{corollary}
-Let $ \mathcal{G} $ be a finite Abelian group of order $ q $, and let $ n $ be a positive integer.
+Let $ \G $ be a finite Abelian group of order $ q $, and let $ n $ be a positive integer.
 Then $ g^n = g^{n \mod q} $.
 \end{corollary}
 
@@ -63,16 +63,16 @@ g^n = g^{aq+n_q} = (g^a)^q g^{n_q} = g^{n_q}
 \end{proof}
 
 \begin{lemma}
-If $ \mathcal{G} $ is an Abelian group with prime order $ q $, then 
+If $ \G $ is an Abelian group with prime order $ q $, then 
 \begin{enumerate}
-    \item $ \mathcal{G} $ is cyclic; furthermore,
-    \item every element of $ \mathcal{G} $ (except the identity) is a generator.
+    \item $ \G $ is cyclic; furthermore,
+    \item every element of $ \G $ (except the identity) is a generator.
 \end{enumerate}
 \end{lemma}
 
 \subsection{Discrete Logarithm Problem}
 
-The problem can be described as follows: given a generator $ g $ of group $ \mathcal{G} $ and a random element $ h \in \mathcal{G} $, compute $ \log_g h $.
+The problem can be described as follows: given a generator $ g $ of group $ \G $ and a random element $ h \in \G $, compute $ \log_g h $.
 
 A common reference is made to the \textit{discrete logarithm assumption}, which says that for most groups, the discrete logarithm problem is ``hard".
 
@@ -86,16 +86,16 @@ We proceed to describe the El Gamal encryption scheme which is based on the Diff
 
 \begin{algorithmic}
 \STATE {\textbf{Key generation} \textsc{Gen}($ 1^k $):}
-\STATE ($ \mathcal{G} $, $ q $, $ g $) $ \leftarrow \textsc{GroupGen} (1^k) $ 
-\STATE Choose $ x \leftarrow \mathbb{Z}_q $; set $ y = g^x $ 
-\STATE Output $ PK = ( \mathcal{G}, q, g, y) $ and $ SK = x $ 
+\STATE ($ \G $, $ q $, $ g $) $ \leftarrow \textsc{GroupGen} (1^k) $ 
+\STATE Choose $ x \leftarrow \Zq $; set $ y = g^x $ 
+\STATE Output $ PK = ( \G, q, g, y) $ and $ SK = x $ 
 \end{algorithmic} 
 
 \smallskip
 
 \begin{algorithmic}
-\STATE {\textbf{Encryption} $ \mathcal{E}_{pk} (m) $ (where $ m \in \mathcal{G} $)}
-\STATE Pick $ r \leftarrow \mathbb{Z}_q $ 
+\STATE {\textbf{Encryption} $ \mathcal{E}_{pk} (m) $ (where $ m \in \G $)}
+\STATE Pick $ r \leftarrow \Zq $ 
 \STATE Output $ \langle g^r, y^r m \rangle $ 
 \end{algorithmic} 
 
