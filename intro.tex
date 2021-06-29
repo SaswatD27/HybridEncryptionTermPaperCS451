@@ -34,8 +34,8 @@ This is implemented in the following way, given that the sender is named Alice a
 
 \begin{enumerate}
 \item Alice obtains Bob's public key;
-\item \textbf{DEM:} She then produces a fresh symmetric key $k_\text{symm}$ and then encrypts the message $m$ she wants to send using $k_\text{symm}$ to obtain a ciphertext $\chi$;
-\item \textbf{KEM:} Note that only Alice possesses $k_\symm$ at this point in time, so she encrypts $k_\symm$ using Bob's public key (which is convenient, because symmetric keys in practice are usually and ideally of small and manageable sizes, and thus appropriate for public key encryption) to get $\psi$;
+\item \textsc{DEM}: She then produces a fresh symmetric key $k_\text{symm}$ and then encrypts the message $m$ she wants to send using $k_\text{symm}$ to obtain a ciphertext $\chi$;
+\item \textsc{KEM}: Note that only Alice possesses $k_\symm$ at this point in time, so she encrypts $k_\symm$ using Bob's public key (which is convenient, because symmetric keys in practice are usually and ideally of small and manageable sizes, and thus appropriate for public key encryption) to get $\psi$;
 \item Alice sends $\bar\psi=(\psi,\chi)$ to Bob, and he decrypts it using his private key - first he verifies whether $\bar\psi$ properly encodes the tuple of ciphertexts $(\psi,\chi)$;
 
 \begin{enumerate}
