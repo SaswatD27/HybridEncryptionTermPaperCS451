@@ -7,6 +7,18 @@ However, before diving into the details of the scheme, we provide a brief overvi
 
 \subsection{An overview of Group theory}
 
+\begin{definition}
+An Abelian group $ \mathcal{G} $ is a finite set of elements along with an operation $ * $ such that:
+
+\begin{itemize}
+    \item \textbf{Closure} For all $ a, b \in \mathcal{G} $ we have $ a * b \in \mathcal{G} $. We use $ a * b $ as $ ab $ henceforth for brevity.
+    \item \textbf{Associativity} $ \forall a, b, c \in \mathcal{G} $, $ (ab)c = a(bc) $.
+    \item \textbf{Commutativity} $ \forall a, b \in \mathcal{G} $, $ ab = ba $.
+    \item \textbf{Existence of identity} $ \exists $ an element $ 1 \in \mathcal{G} $ such that $ 1 * a = a $ $ \forall a \in \mathcal{G} $. This element is the identity of $ \mathcal{G} $.
+    \item \textbf{Inverse} $ \forall a \in \mathcal{G}$, $ \exists $ an element $ a^{-1} \in \mathcal{G} $ such that $ aa^{-1} = 1 $.
+\end{itemize}
+\end{definition}
+
 \begin{theorem}
 Let $\mathcal{G}$ be a finite Abelian group of order $ q $. Then $ a^q = 1 $ for all a $\in \mathcal{G}$.
 \end{theorem}
@@ -23,18 +35,20 @@ Then $ g^n = g^{n \mod q} $.
 \end{corollary}
 
 \begin{proof}
-Let $ n = n_q \mod q $ so that $ n $ can be written as 
+Let us write $ n = n_q \mod q $ so that $ n $ can be further written as $ n = aq + n_q $ for some $ a \in \mathbb{Z} $. Then, we have
 
-% complete the proof
+\begin{equation*}
+g^n = g^{aq+n_q} = (g^a)^q g^{n_q} = g^{n_q}
+\end{equation*}
 \end{proof}
 
-\begin{corollary}
+\begin{lemma}
 If $ \mathcal{G} $ is an Abelian group with prime order $ q $, then 
 \begin{enumerate}
     \item $ \mathcal{G} $ is cyclic; furthermore,
     \item every element of $ \mathcal{G} $ (except the identity) is a generator.
 \end{enumerate}
-\end{corollary}
+\end{lemma}
 
 \subsection{Discrete Logarithm Problem}
 
