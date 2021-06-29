@@ -1,0 +1,71 @@
+\section{El Gamal}
+
+\label{sec:elgamal} 
+
+In this section, we proceed to describe a clever but efficient public key encryption scheme called \textit{El Gamal encryption} \cite{Elgamal_1985}. 
+However, before diving into the details of the scheme, we provide a brief overview of necessary theorems in group theory.
+
+\subsection{An overview of Group theory}
+
+\begin{theorem}
+Let $\mathcal{G}$ be a finite Abelian group of order $ q $. Then $ a^q = 1 $ for all a $\in \mathcal{G}$.
+\end{theorem}
+
+\begin{proof}
+A simple proof exists for the theorem. Let us take $ a_1, \ldots a_q $ to be the elements of $\mathcal{G}$ and let $ a \in \mathcal{G} $ be some arbitrary element.
+
+% complete the proof
+\end{proof}
+
+\begin{corollary}
+Let $ \mathcal{G} $ be a finite Abelian group of order $ q $, and let $ n $ be a positive integer.
+Then $ g^n = g^{n \mod q} $.
+\end{corollary}
+
+\begin{proof}
+Let $ n = n_q \mod q $ so that $ n $ can be written as 
+
+% complete the proof
+\end{proof}
+
+\begin{corollary}
+If $ \mathcal{G} $ is an Abelian group with prime order $ q $, then 
+\begin{enumerate}
+    \item $ \mathcal{G} $ is cyclic; furthermore,
+    \item every element of $ \mathcal{G} $ (except the identity) is a generator.
+\end{enumerate}
+\end{corollary}
+
+\subsection{Discrete Logarithm Problem}
+
+The problem can be described as follows: given a generator $ g $ of group $ \mathcal{G} $ and a random element $ h \in \mathcal{G} $, compute $ \log_g h $.
+
+A common reference is made to the \textit{discrete logarithm assumption}, which says that for most groups, the discrete logarithm problem is ``hard".
+
+\subsection{Description of El Gamal}
+
+After the necessary overview, we go ahead and describe the El Gamal encryption scheme whose security is closely related to the discrete logarithm assumption:
+
+\begin{algorithmic}
+\STATE {\textbf{Key generation} \textsc{Gen}($ 1^k $):}
+\STATE ($ \mathcal{G} $, $ q $, $ g $) $ \leftarrow \textsc{GroupGen} (1^k) $ 
+\STATE Choose $ x \leftarrow \mathbb{Z}_q $; set $ y = g^x $ 
+\STATE Output $ PK = ( \mathcal{G}, q, g, y) $ and $ SK = x $ 
+\end{algorithmic}
+
+\begin{algorithmic}
+\STATE {\textbf{Encryption} $ \mathcal{E}_{pk} (m) $ (where $ m \in \mathcal{G} $)}
+\STATE Pick $ r \leftarrow \mathbb{Z}_q $ 
+\STATE Output $ \langle g^r, y^r m \rangle $ 
+\end{algorithmic}
+
+\begin{algorithmic}
+\STATE {\textbf{Decryption} $ \mathcal{D}_{sk} (A, B) $}:
+\STATE Compute $ m = \frac{B}{A^x} $ 
+\end{algorithmic}
+
+The correctness of the decryption process follows from,
+
+\begin{equation*}
+\frac{y^r m}{(g^r)^x} = \frac{y^r m}{(g^x)^r} = \frac{y^r m }{y^r} = m
+\end{equation*}

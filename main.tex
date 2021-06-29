@@ -8,6 +8,12 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{setspace}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
 
 \begin{document}
 \title{Hybrid Encryption: A Brief Introduction}
@@ -23,7 +29,7 @@
 %\onehalfspacing
 
 \input{intro}
-\input{el-gamal}
+\input{elgamal}
 \input{ssl}
 \input{conclusion}
 
