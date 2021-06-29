@@ -24,9 +24,24 @@ Let $\mathcal{G}$ be a finite Abelian group of order $ q $. Then $ a^q = 1 $ for
 \end{theorem}
 
 \begin{proof}
-A simple proof exists for the theorem. Let us take $ a_1, \ldots a_q $ to be the elements of $\mathcal{G}$ and let $ a \in \mathcal{G} $ be some arbitrary element.
 
-% complete the proof
+Taken from \cite{koocmsc}.
+
+Let us take $ a_1, \ldots a_q $ to be the elements of $\mathcal{G}$ and let $ a \in \mathcal{G} $ be some arbitrary element. We note that the sequence of elements $ aa_1, aa_2, \ldots , aa_q $ also contains exactly the elements of group $ \mathcal{G} $. Therefore:
+
+\begin{equation*}
+\begin{split}
+a_1 \cdot a_2 \cdot \cdot \cdot a_q
+&= (aa_1) \cdot (aa_2) \cdot \cdot \cdot (aa_q)\\
+&= a^q (a_1 \cdot a_2 \cdot \cdot \cdot a_q)
+\end{split}
+\end{equation*}
+
+On multiplying both sides by $ (a_1 \cdot \cdot \cdot a_q)^{-1} $, we get 
+
+\begin{equation*}
+a^q = 1
+\end{equation*}
 \end{proof}
 
 \begin{corollary}
@@ -35,7 +50,8 @@ Then $ g^n = g^{n \mod q} $.
 \end{corollary}
 
 \begin{proof}
-\textit{Taken from \cite{koocmsc}}.
+
+Taken from \cite{koocmsc}.
 
 Let us write $ n = n_q \mod q $ so that $ n $ can be further written as $ n = aq + n_q $ for some $ a \in \mathbb{Z} $. Then, we have
 
