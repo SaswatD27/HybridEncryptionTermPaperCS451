@@ -3,7 +3,7 @@
 \label{sec:elgamal} 
 
 In this section, we proceed to describe a clever but efficient public key encryption scheme called \textit{El Gamal encryption} \cite{Elgamal_1985}. 
-However, before diving into the details of the scheme, we provide a brief overview of necessary theorems in group theory.
+However, before diving into the details of the scheme, we provide a brief overview of necessary definitions and theorems in group theory.
 
 \subsection{An overview of Group theory}
 
@@ -101,3 +101,5 @@ The correctness of the decryption process follows from,
 \begin{equation*}
 \frac{y^r m}{(g^r)^x} = \frac{y^r m}{(g^x)^r} = \frac{y^r m }{y^r} = m
 \end{equation*}
+
+\subsection{Decisional Diffie-Hellman (DDH) Assumption}
