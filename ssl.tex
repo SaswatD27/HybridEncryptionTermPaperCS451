@@ -1,26 +1,42 @@
 \section{Secure Sockets Layer (SSL)}
-
 One of the most common applications of hybrid encryption is the SSL protocol.
 
-Secure Sockets Layer (SSL) is a security protocol used to establish an encrypted link between a server and a client (a website and a user's web browser for example). 
-It allows private information like social security numbers, credit card numbers and email passwords to be transmitted securely from the client to the server.
+\cite{mckinley}
+Secure Sockets Layer (SSL) is the communication protocol of choice for majority of the Internet community. The point of the protocol is to provide privacy and reliability between two communicating applications (user's browser and a website the user visits for example). The three main features of the SSL protocol are:
 
-Naturally, an encryption scheme to establish a link between a browser and a website's server must be as time efficient as possible. 
-So asymmetric encryption doesn't seem to be a viable scheme to implement in such a setting, given its relatively high computation time. 
-But at the same time, asymmetric encryption schemes are definitely more secure than, say, symmetric encryption schemes and this is highly desirable in an internet setting as users are often required to input sensitive information on various websites. 
-This is precisely the reason hybrid encryption is used by SSL: we want a scheme that is both time efficient and highly secure.
-
-\subsection{The Handshake}
-
-When a browser attempts to access a website that is secured by SSL, the browser and the web server establish an SSL connection using a process called an “SSL Handshake” (the handshake, in fact, is invisible to the user and happens instantaneously) \cite{digicert}.
-
-The handshake is implemented in the following way,
 \begin{enumerate}
-\item The browser connects to a web server secured with SSL and requests the sever to identify itself;
-\item The server sends a copy of its SSL certificate, which includes the server's public key;
-\item Browser checks the certificate root against a list of trusted \textit{certificate authorities} and that the certificate is unexpired, unrevoked, and that its common name is valid for the website that it is connecting to. If the browser trusts the website, it generates a random session key, encrypts it with the server's public key, and sends it back to the server;
-\item The server decrypts the encrypted random session key with its private key and sends an acknowledgement message, encrypted with the session key, back to the client's browser;
-\item The server and browser now communicate by encrypting messages with the session key.
-\end{enumerate}  %SD-semicolons are used in lists like these professionally, though periods are also fine, but semicolons are preferred.
+    \item Privacy of transferred information through encryption
+    \item Identity authentication through certificates
+    \item Reliability and stability of the established secure connection
+\end{enumerate}
 
-\label{sec:ssl}
+The most common applications of SSL are in email and e-commerce transactions. In fact, every website whose URL contains \emph{HTTPS} (Secure HTTP) is secured by the SSL protocol.
+
+Naturally, an encryption scheme to establish a link between a user's web browser and a client website's server must be as time efficient as possible. So asymmetric encryption doesn't seem to be a viable scheme to implement in such a setting, given its relatively high computation time. On the other hand, asymmetric encryption schemes are definitely more secure and this is highly desirable in an internet setting as users are often required to input sensitive information on various websites. This is precisely the reason hybrid encryption is used by SSL: we want a scheme that is both time efficient and highly secure.
+
+\subsection{SSL Certificate} \cite{cloudflare_certificate}
+Websites that wish to be secured by SSL must first acquire an "SSL Certificate". This digital certificate is a means of verifying the ownership of the website and also prevents attackers from creating a fake version of the site, and gain user trust. It is issued to a website by a Certificate Authority (CA).A CA is a trusted third party, that generates and gives out SSL certificates. The certificate contains :
+\begin{enumerate}
+    \item The domain name the certificate was issued for
+    \item Organization or person it was issued to
+    \item The issuing CA and their digital signature
+    \item Issue date and expiration date of certificate
+    \item A public key(unique to the website) that will be used by clients of the website
+\end{enumerate}
+
+
+
+\subsection{The Handshake} \cite{digicert} \cite{cloudflare_handshake}
+
+When a browser attempts to access a website that is secured by SSL, the browser and the web server establish an SSL connection using a process called an “SSL Handshake” (the handshake, in fact, is invisible to the user and happens instantaneously).
+
+The outline of the handshake:
+\begin{enumerate}
+\item \textbf{Client Hello} The client's web browser initiates the handshake by sending a "hello" message to the server;
+\item \textbf{Server Hello} In reply to the client hello message, the server sends a message containing the server's SSL certificate;
+\item \textbf{Authentication} The client's web browser verifies the server's SSL certificate with the certificate authority that issued it(every browser has a list of trusted CA's). This confirms that the server is who it says it is, and that the client is interacting with the actual owner of the domain.
+\item \textbf{Secret Key Generation} Client's web browser generates a random "session key",encrypts with public key of website (available on the SSL certificate) and sends it to the server;
+\item The server decrypts the key with its private key, encrypts a "finished message" using the session key and sends it to the client;
+\item Handshake is over and communication proceeds with use of the session key.
+\end{enumerate}
+
