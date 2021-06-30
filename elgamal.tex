@@ -76,9 +76,60 @@ The problem can be described as follows: given a generator $ g $ of group $ \G $
 
 A common reference is made to the \textit{discrete logarithm assumption}, which says that for most groups, the discrete logarithm problem is ``hard".
 
+\subsection{Overview of Diffie-Hellman Key Agreement}
+
+The \emph{Diffie-Hellman Key Agreement} (DHKA) provides a very practical solution to the key distribution problem, i.e. it enables two parties, Alice and Bob to agree on a common key over an insecure public channel prior to the actual communication.
+
+The key idea behind the scheme is that in the group \( \mathbb{Z}^*_p \) where \( p \) is a prime, exponentiation is a one-way function and is commutative \cite{paar2009understanding}, i.e.
+
+\begin{equation}
+    k = (g^x)^y \equiv (g^y)^x \mod p
+\end{equation}
+
+The value \( (g^y)^x \mod p \) is the joint secret key that the parties, Alice and Bob can use to securely communicate in a session.
+
+Let us consider two parties, Alice and Bob who wish to communicate securely and would like to establish a secret key for the same. There are certain parameters laid out in the public, either by a trusted third party or by Alice and Bob themselves. The DHKA consists of basically two steps, setup and exchange, where a common secret key is agreed upon.
+
+The setup protocol is as follows:
+
+\begin{tcolorbox}
+\textbf{Setup} 
+
+\begin{enumerate}
+    \item Choose a large prime number \( p \).
+    \item Choose an integer \( g \in \{2, 3, \ldots , p-2\} \). (Technically, this is a generator of group \( \mathbb{Z}^*_p \))
+    \item Release \( p \) and \( g \) publicly.
+\end{enumerate}
+\end{tcolorbox}
+
+Alice and Bob agree publicly on prime \( p \) and generator \( g \in \mathbb{Z}^*_p \). Let \( n = |\mathbb{Z}^*_p| \).
+
+The exchange protocol then follows as:
+
+\begin{tcolorbox}
+\textbf{Exchange} 
+\begin{enumerate}
+    \item Alice chooses \( a \leftarrow \mathbb{Z}_n \). 
+    \item Bob chooses \( b \leftarrow \mathbb{Z}_n \).
+    \item Alice computes \( A = g^a \mod p \) and sends it to Bob.
+    \item Bob computes \( B = g^b \mod p \) and sends it to Alice.
+    \item Bob privately computes \( k_1 := A^b \mod p \). Similarly, Alice privately computes \( k_2 := B^a \).
+\end{enumerate}
+\end{tcolorbox}
+
+We see that \( k_1 := A^b \mod p = (g^a)^b \mod p \) and \( k_2 := B^a \mod p = (g^b)^a \mod p \). Hence we see that both parties come to agree on a common secret key, namely
+
+\begin{equation}
+    k_1 = k_2 = g^{ab} \mod p
+\end{equation}
+
+It is to be noted that in the public domain, we have \( p \), \( g \), \( g^a \), \( g^b \). From these parameters, it is ``hard" for an attacker to decipher \( k := g^{ab} \), which is the secret key Alice and Bob have agreed upon. However, we shall not show this explicitly for the sake of brevity.
+
 \subsection{Description of Elgamal}
 
-We proceed to describe the Elgamal encryption scheme which is based on the Diffie-Hellman Key agreement scheme.
+We proceed to describe the Elgamal encryption scheme which is based on the DHKA scheme. As usual, let's consider two parties, Alice and Bob.
+
+
 
 \smallskip
 
