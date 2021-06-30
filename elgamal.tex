@@ -78,6 +78,8 @@ A common reference is made to the \textit{discrete logarithm assumption}, which 
 
 \subsection{Overview of Diffie-Hellman Key Agreement}
 
+\label{subsec:dhka} 
+
 The \emph{Diffie-Hellman Key Agreement} (DHKA) provides a very practical solution to the key distribution problem, i.e. it enables two parties, Alice and Bob to agree on a common key over an insecure public channel prior to the actual communication.
 
 The key idea behind the scheme is that in the group \( \mathbb{Z}^*_p \) where \( p \) is a prime, exponentiation is a one-way function and is commutative \cite{paar2009understanding}, i.e.
@@ -88,7 +90,9 @@ The key idea behind the scheme is that in the group \( \mathbb{Z}^*_p \) where \
 
 The value \( (g^y)^x \mod p \) is the joint secret key that the parties, Alice and Bob can use to securely communicate in a session.
 
-Let us consider two parties, Alice and Bob who wish to communicate securely and would like to establish a secret key for the same. There are certain parameters laid out in the public, either by a trusted third party or by Alice and Bob themselves. The DHKA consists of basically two steps, setup and exchange, where a common secret key is agreed upon.
+Let us consider two parties, Alice and Bob who wish to communicate securely and would like to establish a secret key for the same. 
+There are certain parameters laid out in the public, either by a trusted third party or by Alice and Bob themselves. 
+The DHKA consists of basically two steps, setup and exchange, where a common secret key is agreed upon.
 
 The setup protocol is as follows:
 
@@ -102,7 +106,8 @@ The setup protocol is as follows:
 \end{enumerate}
 \end{tcolorbox}
 
-Alice and Bob agree publicly on prime \( p \) and generator \( g \in \mathbb{Z}^*_p \). Let \( n = |\mathbb{Z}^*_p| \).
+Alice and Bob agree publicly on prime \( p \) and generator \( g \in \mathbb{Z}^*_p \). 
+Let \( n = |\mathbb{Z}^*_p| \).
 
 The exchange protocol then follows as:
 
@@ -123,9 +128,11 @@ We see that \( k_1 := A^b \mod p = (g^a)^b \mod p \) and \( k_2 := B^a \mod p = 
     k_1 = k_2 = g^{ab} \mod p
 \end{equation}
 
-It is to be noted that in the public domain, we have \( p \), \( g \), \( g^a \), \( g^b \). From these parameters, it is ``hard" for an attacker to decipher \( k := g^{ab} \), which is the secret key Alice and Bob have agreed upon. However, we shall not show this explicitly for the sake of brevity.
+It is to be noted that in the public domain, we have \( p \), \( g \), \( g^a \), \( g^b \). 
+From these parameters, it is ``hard" for an attacker to decipher \( k := g^{ab} \), which is the secret key Alice and Bob have agreed upon. 
+However, we shall not show this explicitly for the sake of brevity.
 
-\subsection{Description of Elgamal}
+\subsection{Elgamal encryption protocol}
 
 We proceed to describe the Elgamal encryption scheme which is based on the DHKA scheme. As usual, let's consider two parties, Alice and Bob.
 
@@ -163,7 +170,36 @@ The correctness of the decryption process follows from,
 \frac{y^r m}{(g^r)^x} = \frac{y^r m}{(g^x)^r} = \frac{y^r m }{y^r} = m
 \end{equation*}
 
-\subsubsection{Security}
-
-
 \subsection{Decisional Diffie-Hellman (DDH) Assumption}
+
+The DHKE protocol is dependent on the cyclic group \( \G \) chosen (along with generator \( g \)).
+As seen in sec. \ref{subsec:dhka}, Alice and Bob choose \( a \) and \( b \) respectively, uniform randomly. 
+After which, \( g^a \) and \( g^b \) is computed, and the secret key corresponding to this is \( g^{ab} \).
+
+Let us define the two schemes,
+
+\begin{itemize}
+    \item Define scheme \( L_1^{\G} \)\footnote{The superscript denotes that the scheme operates in the cyclic group \( \G \).} as follows: 
+    \begin{enumerate}
+        \item \( a, b \leftarrow \mathbb{Z}_n \).
+        \item Return tuple \( (g^a, g^b, g^{ab}) \).
+    \end{enumerate}
+
+    \item Define scheme \( L_2^{\G} \) as follows: 
+    \begin{enumerate}
+        \item \( a, b, c \leftarrow \mathbb{Z}_n \).
+        \item Return tuple \( g^a, g^b, g^c \).
+    \end{enumerate}
+\end{itemize}
+
+As seen, scheme \( L_1^{\G} \) generates a secret key \( g^{ab} \) and scheme \( L_2^{\G} \) generates an independent random key \( g^c \).
+
+The \textit{decisional Diffie-Hellman (DDH) assumption} states that
+
+\begin{equation} \label{eq:ddh} 
+    L_1^{\G} \approx L_2^{\G}
+\end{equation}
+
+In layman terms, eq. \ref{eq:ddh} means that choosing \( c \) is ``as random as" \( ab \) where \( a \) and \( b \) have been chosen uniform randomly.
+
+\subsection{Security of Elgamal}
