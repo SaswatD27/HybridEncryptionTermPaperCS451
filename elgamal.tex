@@ -2,11 +2,10 @@
 
 \label{sec:elgamal} 
 
-\subsection{ElGamal Encryption}
-In this subsection, we will proceed to describe a clever but efficient public key encryption scheme, most prominently used in hybrid encryption, called \textit{ElGamal encryption} \cite{Elgamal_1985}. 
+In this section, we will proceed to describe a clever but efficient public key encryption scheme, most prominently used in hybrid encryption, called \textit{ElGamal encryption} \cite{Elgamal_1985}. 
 However, before diving into the details of the scheme, we provide a brief overview of necessary definitions and theorems in group theory.
 
-\subsubsection{An overview of Group theory}
+\subsection{An overview of Group theory}
 
 \cite{koocmsc} defines an Abelian group $ \G $ as
 
@@ -44,10 +43,12 @@ On multiplying both sides by $ (a_1 \cdot \cdot \cdot a_q)^{-1} $, we get
 a^q = 1
 \end{equation*}
 \end{proof}
+
 \begin{corollary}
 Let $ \G $ be a finite Abelian group of order $ q $, and let $ n $ be a positive integer.
 Then $ g^n = g^{n \mod q} $.
 \end{corollary}
+
 \begin{proof}
 
 Taken from \cite{koocmsc}.
@@ -57,6 +58,7 @@ Let us write $ n = n_q \mod q $ so that $ n $ can be further written as $ n = aq
 g^n = g^{aq+n_q} = (g^a)^q g^{n_q} = g^{n_q}
 \end{equation*}
 \end{proof}
+
 \begin{lemma}
 If $ \G $ is an Abelian group with prime order $ q $, then 
 \begin{enumerate}
@@ -64,11 +66,13 @@ If $ \G $ is an Abelian group with prime order $ q $, then
     \item every element of $ \G $ (except the identity) is a generator.
 \end{enumerate}
 \end{lemma}
-\subsubsection{Discrete Logarithm Problem}
+
+\subsection{Discrete Logarithm Problem}
 The problem can be described as follows: given a generator $ g $ of group $ \G $ and a random element $ h \in \G $, compute $ \log_g h $.
 
 A common reference is made to the \textit{discrete logarithm assumption}, which says that for most groups, the discrete logarithm problem is ``hard".
-\subsubsection{Overview of Diffie-Hellman Key Agreement}
+
+\subsection{Overview of Diffie-Hellman Key Agreement}
 
 \label{subsec:dhka} 
 
@@ -119,11 +123,14 @@ We see that \( k_1 := A^b \mod p = (g^a)^b \mod p \) and \( k_2 := B^a \mod p = 
 \end{equation}
 
 It is to be noted that in the public domain, we have \( p \), \( g \), \( g^a \), \( g^b \). 
-From these parameters, it is ``hard" for an attacker to decipher \( k := g^{ab} \), which is the secret key Alice and Bob have agreed upon. 
+From these parameters, it is ``hard" for an attacker to decipher \( k := g^{ab} \mod p\), which is the secret key Alice and Bob have agreed upon. 
 However, we shall not show this explicitly for the sake of brevity.
-\subsubsection{Description of ElGamal Encryption Protocol}
 
-We proceed to describe the ElGamal encryption scheme which is based on the DHKA scheme. As usual, let's consider two parties, Alice and Bob.
+\subsection{Description of the ElGamal Encryption Protocol}
+
+We proceed to describe the ElGamal encryption scheme which is based on the DHKA scheme. As usual, let's consider two parties, Alice and Bob. 
+As seen in sec. \ref{subsec:dhka}, Alice and Bob agree on a common secret key \( k_m \) via DHKA. 
+
 
 
 
@@ -159,13 +166,14 @@ The correctness of the decryption process follows from,
 \frac{y^r m}{(g^r)^x} = \frac{y^r m}{(g^x)^r} = \frac{y^r m }{y^r} = m
 \end{equation*}
 
-\subsubsection{Decisional Diffie-Hellman (DDH) Assumption}
+\subsection{Decisional Diffie-Hellman (DDH) Assumption}
 
 The DHKE protocol is dependent on the cyclic group \( \G \) chosen (along with generator \( g \)).
 As seen in sec. \ref{subsec:dhka}, Alice and Bob choose \( a \) and \( b \) respectively, uniform randomly. 
 After which, \( g^a \) and \( g^b \) is computed, and the secret key corresponding to this is \( g^{ab} \).
 
 Let us define the two schemes,
+
 \begin{itemize}
     \item Define scheme \( L_1^{\G} \)\footnote{The superscript denotes that the scheme operates in the cyclic group \( \G \).} as follows: 
     \begin{enumerate}
@@ -190,4 +198,47 @@ The \textit{decisional Diffie-Hellman (DDH) assumption} states that
 
 In layman terms, eq. \ref{eq:ddh} means that choosing \( c \) is ``as random as" \( ab \) where \( a \) and \( b \) have been chosen uniform randomly.
 
-\subsubsection{Security of Elgamal}
+\subsection{Security of Elgamal}
+
+When dealing with the security of the scheme, we need to distinguish between two types of attacks, i.e. passive (listen-only) and active attacks (where the adversary Charlie can generate and alter messages between the two main parties of communication).
+
+\subsubsection{Passive attacks}
+
+In the public channel, we have \( p \), \( g \), \( k_a \equiv g^a \), \( k_b \equiv g^b \) and cyphertext \( y \) . A passive attack would mean recovering message \( x \) from the encrypted cyphertext \( y = x \cdot g^{ab} \)\footnote{Technically, it is \( y = x \cdot g^{ab} \mod p \) but we omit \( \mod p \) for the sake of brevity.} via eavesdropping.
+Security against this form of attack depends on the hardness of DHKE. 
+This has no known\footnote{This is subject to change.} methods other than computing the discrete logarithm problem.
+Let assume that our adversary Charlie is powerful enough to compute these logarithms, then there are two ways he could go about it:
+
+\begin{itemize}
+    \item By finding Bob's secret key \( b \) and recovering message \( x \):
+        \begin{equation}
+            b = \log_g k_b \mod p
+        \end{equation}
+
+        All this is assuming that Charlie can compute discrete logarithms, which is practically not feasible. 
+        If the adversary succeeds in doing so, then he follows the same steps as Bob to recover x, i.e.
+
+        \begin{equation}
+            x \equiv y \cdot (k_a^b)^{-1} \mod p
+        \end{equation}
+        
+    \item Another way would be for Charlie to recover Alice's secret exponent \( a \):
+        \begin{equation}
+            a = \log_g k_a \mod p
+        \end{equation}
+        
+        We make the same assumption as before i.e. Charlie has the power to compute this discrete logarithm problem.
+        He then similarly, proceeds to compute the plaintext:
+
+        \begin{equation}
+            x \equiv y \cdot (k_b^a)^{-1} \mod p     
+        \end{equation}
+\end{itemize}
+
+\subsubsection{Active attacks}
+
+The ElGamal encryption protocol is an asymmetric scheme and as such, it must be ensured that the public keys are indeed authentic i.e. Alice (the sender) indeed has the public key that belongs to Bob.
+If an adversary Charlie convinces Alice otherwise that his key is indeed Bob's, then the communication channel is compromised and Charlie can then attack the scheme.
+Preventing this type of attack requires authentication of the key via certificates\footnote{We shall not discuss this for the sake of brevity.}.
+
+Another point for breaching the protocol is that the sending party's secret exponent \( a \) must not be reused.
