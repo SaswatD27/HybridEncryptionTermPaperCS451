@@ -3,71 +3,9 @@
 \label{sec:elgamal} 
 
 \subsection{ElGamal Encryption}
-In this subsection, we will proceed to describe a clever but efficient public key encryption scheme, most prominently used in hybrid encryption, called \textit{ElGamal encryption} \cite{Elgamal_1985}. 
-However, before diving into the details of the scheme, we provide a brief overview of necessary definitions and theorems in group theory.
+In this subsection, we will proceed to describe a clever but efficient public key encryption scheme, most prominently used in hybrid encryption, called \textit{ElGamal encryption} \textsuperscript{\cite{Elgamal_1985}}. 
+However, before diving into the details of the scheme, we would like to point out that some basic prerequisites in group theory and other concepts that are necessary for the reader to understand how ElGamal works are listed in \textbf{Appendix A1}.
 
-\subsubsection{An overview of Group theory}
-
-\cite{koocmsc} defines an Abelian group $ \G $ as
-
-\begin{definition}
-An Abelian group $ \G $ is a finite set of elements along with an operation $ * $ such that:
-
-\begin{itemize}
-    \item \textbf{Closure} For all $ a, b \in \G $ we have $ a * b \in \G $. We use $ a * b $ as $ ab $ henceforth for brevity.
-    \item \textbf{Associativity} $ \forall a, b, c \in \G $, $ (ab)c = a(bc) $.
-    \item \textbf{Commutativity} $ \forall a, b \in \G $, $ ab = ba $.
-    \item \textbf{Existence of identity} $ \exists $ an element $ 1 \in \G $ such that $ 1 * a = a $ $ \forall a \in \G $. This element is the identity of $ \G $.
-    \item \textbf{Inverse} $ \forall a \in \G$, $ \exists $ an element $ a^{-1} \in \G $ such that $ aa^{-1} = 1 $.
-\end{itemize}
-\end{definition}
-
-\begin{theorem}
-Let $\G$ be a finite Abelian group of order $ q $. Then $ a^q = 1 $ for all a $\in \G$.
-\end{theorem}
-
-\begin{proof}
-
-Taken from \cite{koocmsc}.
-
-Let us take $ a_1, \ldots a_q $ to be the elements of $\G$ and let $ a \in \G $ be some arbitrary element. We note that the sequence of elements $ aa_1, aa_2, \ldots , aa_q $ also contains exactly the elements of group $ \G $. Therefore:
-\begin{equation*}
-\begin{split}
-a_1 \cdot a_2 \cdot \cdot \cdot a_q
-&= (aa_1) \cdot (aa_2) \cdot \cdot \cdot (aa_q)\\
-&= a^q (a_1 \cdot a_2 \cdot \cdot \cdot a_q)
-\end{split}
-\end{equation*}
-
-On multiplying both sides by $ (a_1 \cdot \cdot \cdot a_q)^{-1} $, we get 
-\begin{equation*}
-a^q = 1
-\end{equation*}
-\end{proof}
-\begin{corollary}
-Let $ \G $ be a finite Abelian group of order $ q $, and let $ n $ be a positive integer.
-Then $ g^n = g^{n \mod q} $.
-\end{corollary}
-\begin{proof}
-
-Taken from \cite{koocmsc}.
-
-Let us write $ n = n_q \mod q $ so that $ n $ can be further written as $ n = aq + n_q $ for some $ a \in \mathbb{Z} $. Then, we have
-\begin{equation*}
-g^n = g^{aq+n_q} = (g^a)^q g^{n_q} = g^{n_q}
-\end{equation*}
-\end{proof}
-\begin{lemma}
-If $ \G $ is an Abelian group with prime order $ q $, then 
-\begin{enumerate}
-    \item $ \G $ is cyclic; furthermore,
-    \item every element of $ \G $ (except the identity) is a generator.
-\end{enumerate}
-\end{lemma}
-\subsubsection{Discrete Logarithm Problem}
-The problem can be described as follows: given a generator $ g $ of group $ \G $ and a random element $ h \in \G $, compute $ \log_g h $.
-
-A common reference is made to the \textit{discrete logarithm assumption}, which says that for most groups, the discrete logarithm problem is ``hard".
 \subsubsection{Overview of Diffie-Hellman Key Agreement}
 
 \label{subsec:dhka} 
@@ -75,6 +13,7 @@ A common reference is made to the \textit{discrete logarithm assumption}, which 
 The \emph{Diffie-Hellman Key Agreement} (DHKA) provides a very practical solution to the key distribution problem, i.e. it enables two parties, Alice and Bob to agree on a common key over an insecure public channel prior to the actual communication.
 
 The key idea behind the scheme is that in the group \( \mathbb{Z}^*_p \) where \( p \) is a prime, exponentiation is a one-way function and is commutative \cite{paar2009understanding}, i.e.
+
 \begin{equation}
     k = (g^x)^y \equiv (g^y)^x \mod p
 \end{equation}
@@ -121,6 +60,7 @@ We see that \( k_1 := A^b \mod p = (g^a)^b \mod p \) and \( k_2 := B^a \mod p = 
 It is to be noted that in the public domain, we have \( p \), \( g \), \( g^a \), \( g^b \). 
 From these parameters, it is ``hard" for an attacker to decipher \( k := g^{ab} \), which is the secret key Alice and Bob have agreed upon. 
 However, we shall not show this explicitly for the sake of brevity.
+
 \subsubsection{Description of ElGamal Encryption Protocol}
 
 We proceed to describe the ElGamal encryption scheme which is based on the DHKA scheme. As usual, let's consider two parties, Alice and Bob.
@@ -154,7 +94,6 @@ We proceed to describe the ElGamal encryption scheme which is based on the DHKA 
 \end{algorithmic}
 
 The correctness of the decryption process follows from,
-
 \begin{equation*}
 \frac{y^r m}{(g^r)^x} = \frac{y^r m}{(g^x)^r} = \frac{y^r m }{y^r} = m
 \end{equation*}
@@ -183,7 +122,6 @@ Let us define the two schemes,
 As seen, scheme \( L_1^{\G} \) generates a secret key \( g^{ab} \) and scheme \( L_2^{\G} \) generates an independent random key \( g^c \).
 
 The \textit{decisional Diffie-Hellman (DDH) assumption} states that
-
 \begin{equation} \label{eq:ddh} 
     L_1^{\G} \approx L_2^{\G}
 \end{equation}
@@ -230,3 +168,5 @@ Now we shall give a very brief description of what goes down in each round of an
 In short, the ability to invert each step given the knowledge of the symmetric key involved will allow decryption of the ciphertext produced using AES.
 
 Now that we have introduced a suitable pair of symmetric key and asymmetric key cryptosystems, we can go on and describe the construction of a hybrid encryption scheme using the same.
+%\end{tcolorbox}
+\subsection{A Hybrid Encryption Scheme Based on ElGamal and AES}
