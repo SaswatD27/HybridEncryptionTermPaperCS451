@@ -2,10 +2,11 @@
 
 \label{sec:elgamal} 
 
-In this section, we will proceed to describe a clever but efficient public key encryption scheme, most prominently used in hybrid encryption, called \textit{ElGamal encryption} \cite{Elgamal_1985}. 
+\subsection{ElGamal Encryption}
+In this subsection, we will proceed to describe a clever but efficient public key encryption scheme, most prominently used in hybrid encryption, called \textit{ElGamal encryption} \cite{Elgamal_1985}. 
 However, before diving into the details of the scheme, we provide a brief overview of necessary definitions and theorems in group theory.
 
-\subsection{An overview of Group theory}
+\subsubsection{An overview of Group theory}
 
 \cite{koocmsc} defines an Abelian group $ \G $ as
 
@@ -70,13 +71,13 @@ If $ \G $ is an Abelian group with prime order $ q $, then
 \end{enumerate}
 \end{lemma}
 
-\subsection{Discrete Logarithm Problem}
+\subsubsection{Discrete Logarithm Problem}
 
 The problem can be described as follows: given a generator $ g $ of group $ \G $ and a random element $ h \in \G $, compute $ \log_g h $.
 
 A common reference is made to the \textit{discrete logarithm assumption}, which says that for most groups, the discrete logarithm problem is ``hard".
 
-\subsection{Overview of Diffie-Hellman Key Agreement}
+\subsubsection{Overview of Diffie-Hellman Key Agreement}
 
 \label{subsec:dhka} 
 
@@ -132,7 +133,7 @@ It is to be noted that in the public domain, we have \( p \), \( g \), \( g^a \)
 From these parameters, it is ``hard" for an attacker to decipher \( k := g^{ab} \), which is the secret key Alice and Bob have agreed upon. 
 However, we shall not show this explicitly for the sake of brevity.
 
-\subsection{ElGamal Encryption Protocol}
+\subsubsection{Description of ElGamal Encryption Protocol}
 
 We proceed to describe the ElGamal encryption scheme which is based on the DHKA scheme. As usual, let's consider two parties, Alice and Bob.
 
