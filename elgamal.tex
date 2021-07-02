@@ -1,11 +1,12 @@
-\section{Elgamal Encryption}
+\section{A Hybrid Cryptosystem using ElGamal Encryption and AES}
 
 \label{sec:elgamal} 
 
-In this section, we proceed to describe a clever but efficient public key encryption scheme called \textit{Elgamal encryption} \cite{Elgamal_1985}. 
+\subsection{ElGamal Encryption}
+In this subsection, we will proceed to describe a clever but efficient public key encryption scheme, most prominently used in hybrid encryption, called \textit{ElGamal encryption} \cite{Elgamal_1985}. 
 However, before diving into the details of the scheme, we provide a brief overview of necessary definitions and theorems in group theory.
 
-\subsection{An overview of Group theory}
+\subsubsection{An overview of Group theory}
 
 \cite{koocmsc} defines an Abelian group $ \G $ as
 
@@ -30,7 +31,6 @@ Let $\G$ be a finite Abelian group of order $ q $. Then $ a^q = 1 $ for all a $\
 Taken from \cite{koocmsc}.
 
 Let us take $ a_1, \ldots a_q $ to be the elements of $\G$ and let $ a \in \G $ be some arbitrary element. We note that the sequence of elements $ aa_1, aa_2, \ldots , aa_q $ also contains exactly the elements of group $ \G $. Therefore:
-
 \begin{equation*}
 \begin{split}
 a_1 \cdot a_2 \cdot \cdot \cdot a_q
@@ -40,28 +40,23 @@ a_1 \cdot a_2 \cdot \cdot \cdot a_q
 \end{equation*}
 
 On multiplying both sides by $ (a_1 \cdot \cdot \cdot a_q)^{-1} $, we get 
-
 \begin{equation*}
 a^q = 1
 \end{equation*}
 \end{proof}
-
 \begin{corollary}
 Let $ \G $ be a finite Abelian group of order $ q $, and let $ n $ be a positive integer.
 Then $ g^n = g^{n \mod q} $.
 \end{corollary}
-
 \begin{proof}
 
 Taken from \cite{koocmsc}.
 
 Let us write $ n = n_q \mod q $ so that $ n $ can be further written as $ n = aq + n_q $ for some $ a \in \mathbb{Z} $. Then, we have
-
 \begin{equation*}
 g^n = g^{aq+n_q} = (g^a)^q g^{n_q} = g^{n_q}
 \end{equation*}
 \end{proof}
-
 \begin{lemma}
 If $ \G $ is an Abelian group with prime order $ q $, then 
 \begin{enumerate}
@@ -69,21 +64,17 @@ If $ \G $ is an Abelian group with prime order $ q $, then
     \item every element of $ \G $ (except the identity) is a generator.
 \end{enumerate}
 \end{lemma}
-
-\subsection{Discrete Logarithm Problem}
-
+\subsubsection{Discrete Logarithm Problem}
 The problem can be described as follows: given a generator $ g $ of group $ \G $ and a random element $ h \in \G $, compute $ \log_g h $.
 
 A common reference is made to the \textit{discrete logarithm assumption}, which says that for most groups, the discrete logarithm problem is ``hard".
-
-\subsection{Overview of Diffie-Hellman Key Agreement}
+\subsubsection{Overview of Diffie-Hellman Key Agreement}
 
 \label{subsec:dhka} 
 
 The \emph{Diffie-Hellman Key Agreement} (DHKA) provides a very practical solution to the key distribution problem, i.e. it enables two parties, Alice and Bob to agree on a common key over an insecure public channel prior to the actual communication.
 
 The key idea behind the scheme is that in the group \( \mathbb{Z}^*_p \) where \( p \) is a prime, exponentiation is a one-way function and is commutative \cite{paar2009understanding}, i.e.
-
 \begin{equation}
     k = (g^x)^y \equiv (g^y)^x \mod p
 \end{equation}
@@ -123,7 +114,6 @@ The exchange protocol then follows as:
 \end{tcolorbox}
 
 We see that \( k_1 := A^b \mod p = (g^a)^b \mod p \) and \( k_2 := B^a \mod p = (g^b)^a \mod p \). Hence we see that both parties come to agree on a common secret key, namely
-
 \begin{equation}
     k_1 = k_2 = g^{ab} \mod p
 \end{equation}
@@ -131,10 +121,9 @@ We see that \( k_1 := A^b \mod p = (g^a)^b \mod p \) and \( k_2 := B^a \mod p = 
 It is to be noted that in the public domain, we have \( p \), \( g \), \( g^a \), \( g^b \). 
 From these parameters, it is ``hard" for an attacker to decipher \( k := g^{ab} \), which is the secret key Alice and Bob have agreed upon. 
 However, we shall not show this explicitly for the sake of brevity.
+\subsubsection{Description of ElGamal Encryption Protocol}
 
-\subsection{Elgamal encryption protocol}
-
-We proceed to describe the Elgamal encryption scheme which is based on the DHKA scheme. As usual, let's consider two parties, Alice and Bob.
+We proceed to describe the ElGamal encryption scheme which is based on the DHKA scheme. As usual, let's consider two parties, Alice and Bob.
 
 
 
@@ -170,14 +159,13 @@ The correctness of the decryption process follows from,
 \frac{y^r m}{(g^r)^x} = \frac{y^r m}{(g^x)^r} = \frac{y^r m }{y^r} = m
 \end{equation*}
 
-\subsection{Decisional Diffie-Hellman (DDH) Assumption}
+\subsubsection{Decisional Diffie-Hellman (DDH) Assumption}
 
 The DHKE protocol is dependent on the cyclic group \( \G \) chosen (along with generator \( g \)).
 As seen in sec. \ref{subsec:dhka}, Alice and Bob choose \( a \) and \( b \) respectively, uniform randomly. 
 After which, \( g^a \) and \( g^b \) is computed, and the secret key corresponding to this is \( g^{ab} \).
 
 Let us define the two schemes,
-
 \begin{itemize}
     \item Define scheme \( L_1^{\G} \)\footnote{The superscript denotes that the scheme operates in the cyclic group \( \G \).} as follows: 
     \begin{enumerate}
@@ -202,4 +190,4 @@ The \textit{decisional Diffie-Hellman (DDH) assumption} states that
 
 In layman terms, eq. \ref{eq:ddh} means that choosing \( c \) is ``as random as" \( ab \) where \( a \) and \( b \) have been chosen uniform randomly.
 
-\subsection{Security of Elgamal}
+\subsubsection{Security of Elgamal}
