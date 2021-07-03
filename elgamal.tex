@@ -139,7 +139,7 @@ When dealing with the security of the scheme, we need to distinguish between two
 
 \subsubsection{Passive attacks}
 
-In the public channel, we have \( p \), \( g \), \( k_a \equiv g^a \), \( k_b \equiv g^b \) and cyphertext \( y \) . A passive attack would mean recovering message \( x \) from the encrypted cyphertext \( y = x \cdot g^{ab} \)\footnote{Technically, it is \( y = x \cdot g^{ab} \mod p \) but we omit \( \mod p \) for the sake of brevity.} via eavesdropping.
+In the public channel, we have \( p \), \( g \), \( k_a \equiv g^a \), \( k_b \equiv g^b \) and cyphertext \( y \) . A passive attack would mean recovering message \( x \) from the encrypted cyphertext \( y = x \cdot g^{ab} \)\textsuperscript{   }\footnote{Technically, it is \( y = x \cdot g^{ab} \mod p \) but we omit \( \mod p \) for the sake of brevity.} via eavesdropping.
 Security against this form of attack depends on the hardness of DHKE. 
 This has no known\footnote{This is subject to change.} methods other than computing the discrete logarithm problem.
 Let assume that our adversary Charlie is powerful enough to compute these logarithms, then there are two ways he could go about it:
