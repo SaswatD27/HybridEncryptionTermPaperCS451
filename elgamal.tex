@@ -244,4 +244,5 @@ This process is quite straightforward.
     \item\emph{DEM}: Then the message plaintext is encrypted using AES with the key the sender generated earlier to get the ciphertext $C'$;
     \item The message gets sent to the recipient, who can then apply ElGamal and AES decryption algorithms, in that order, to first decrypt $C$ using their secret ElGamal key to get the symmetric key for AES then use that to decrypt $C'$ to get the plaintext of the message.
 \end{enumerate}
+
 With this, we end up with a hybrid encryption scheme that combines ElGamal and AES and thus shares in both their security advantages.\footnote{One can refer to \cite{Iavich_Gnatyuk_Jintcharadze_Polishchuk_Odarchenko_2018} for a look at a ElGamal+AES based encryption scheme described by Iavich et al.}
