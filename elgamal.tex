@@ -46,13 +46,14 @@ The exchange protocol then follows as:
 \begin{enumerate}
     \item Alice chooses \( a \leftarrow \mathbb{Z}_n \). 
     \item Bob chooses \( b \leftarrow \mathbb{Z}_n \).
-    \item Alice computes \( A = g^a \mod p \) and sends it to Bob.
-    \item Bob computes \( B = g^b \mod p \) and sends it to Alice.
-    \item Bob privately computes \( k_1 := A^b \mod p \). Similarly, Alice privately computes \( k_2 := B^a \).
+    \item Alice computes \( \alpha = g^a \mod p \) and sends it to Bob.
+    \item Bob computes \( \beta = g^b \mod p \) and sends it to Alice.
+    \item Bob privately computes \( k_1 := \alpha^b \mod p \). Similarly, Alice privately computes \( k_2 := \beta^a \mod p \).
 \end{enumerate}
 \end{tcolorbox}
 
-We see that \( k_1 := A^b \mod p = (g^a)^b \mod p \) and \( k_2 := B^a \mod p = (g^b)^a \mod p \). Hence we see that both parties come to agree on a common secret key, namely
+We see that \( k_1 := \alpha^b \mod p = (g^a)^b \mod p \) and \( k_2 := \beta^a \mod p = (g^b)^a \mod p \). 
+Hence we see that both parties come to agree on a common secret key, namely
 \begin{equation}
     k_1 = k_2 = g^{ab} \mod p
 \end{equation}
