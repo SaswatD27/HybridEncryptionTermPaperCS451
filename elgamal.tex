@@ -179,11 +179,13 @@ Preventing this type of attack requires authentication of the key via certificat
 Another point for breaching the protocol is that the sending party's secret exponent \( a \) must not be reused.
 
 \subsection{AES - A Symmetric Key Cryptosystem}
+
 Originally named the Rijndael algorithm after its creators, Vincent Rijmen and Joan Daemen, AES is a widely used block cipher and ergo uses a symmetric key, with a block size of 128 bits but with varying key sizes of 128, 192, and 256 bits.
 
 We shall not be going into a lot of detail about AES but we shall provide a very brief introduction to the same before we club it with ElGamal to produce a hybrid encryption scheme.
 
 AES is based on a design principle called a substitution-permutation network, and is implemented in several rounds/iterations, which in turn depend on the key size as follows,
+
 \begin{align*}
     \text{Number of rounds}=\begin{cases}
     10 \text{ if key size$ = 128$ bits,}\\
@@ -191,6 +193,7 @@ AES is based on a design principle called a substitution-permutation network, an
     14 \text{ if key size$ = 256$ bits.}
     \end{cases}
 \end{align*}
+
 It is worth noting that AES takes each the data in each block and treats it bytewise, not bitwise, to put it loosely, so, say, a 128 bit block of plaintext can be seen as being 16 bytes long, and it can be represented as a two dimensional array, called a state, of dimensions $4\times4$.
 
 There exists a specified and fixed lookup table called the S-box given in the design which is used to substitute bytes of the plaintext block, which are represented by a two dimensional array as mentioned earlier, in each round.
@@ -199,29 +202,39 @@ Now we shall give a very brief description of what goes down in each round of an
 
 %\begin{tcolorbox}
 \emph{Key Expansion}: AES uses something called a key schedule (whose details have been omitted for the sake of brevity) to expand the given cipher key into a desired number of round keys, with the round key length being equal to the block length, for every round of transformation.
+
 \begin{center}
     \textbf{AES Round}
 \end{center}
+
 \begin{enumerate}
     \item \emph{Initial Round Key Addition}: The round key is added to each byte of the initial state by bitwise XOR;
     \item \emph{ByteSub}: The bytes in the input block are substituted by the means of the S-box (each byte is replaced by a byte obtained by the means of an $8$-bit substitution box) given in the design to produce a $4\times 4$ two (major order) dimensional array/state, the mathematics of which we will not go into, and this substitution introduces non-linearity into the cipher and this step is invertible for the sake of decryption;
     \item \emph{ShiftRow}: Then the rows of the state are shifted as follows
+
     \begin{enumerate}
         \item The first row remains untouched;
         \item The $i^\text{th}$ row is shifted to the left by $i-1$ positions/bytes, and any bytes that spill over, so to speak, are circled back around and added to the right side of said row;
     \end{enumerate}
+
     This step is clearly and easily invertible;
-\item \emph{MixColumn}: In every round but the last round, every column is treated as a polynomial with coefficients in the finite field of size $2^8$ and is multiplied modulo $x^4+1$ with a fixed polynomial (that is chosen in such a way that it is coprime to $x^4+1$ and therefore has an inverse which will be handy during decryption) to produce another polynomial which corresponds to another column which replaces the original column; in short the bytes of each column are run through an invertible linear transformation in this step to get a new column;
+\item \emph{MixColumn}: In every round but the last round, every column is treated as a polynomial with coefficients in the finite field of size $2^8$ and is multiplied modulo $x^4+1$ with a fixed polynomial (that is chosen in such a way that it is coprime to $x^4+1$ and therefore has an inverse which will be handy during decryption) to produce another polynomial which corresponds to another column which replaces the original column; 
+    in short the bytes of each column are run through an invertible linear transformation in this step to get a new column;
 \item \emph{Round Key Addition}: The next round key is added and this process is iterated, and in the last round, the \emph{MixColumn} step shall be omitted.
 \end{enumerate}
+
 In short, the ability to invert each step given the knowledge of the symmetric key involved will allow decryption of the ciphertext produced using AES.
 
 Note that due to the size of the key in AES, whether 256 bits or 128 towards the lower end (therefore giving us either $2^{128}, 2^{192},$ or $2^{256}$ many possible keys), brute forcing AES is close to impossible using currently available computational power, although other attacks have been discovered that compromised flawed implementations of AES and/or for lesser number of rounds of AES, so they are not considered to be of much concern in a practical sense at the moment.
 
 Now that we have introduced a suitable pair of symmetric key and asymmetric key cryptosystems, we can go on and describe the construction of a hybrid encryption scheme using the same.
 %\end{tcolorbox}
+
 \subsection{A Hybrid Encryption Scheme Based on ElGamal and AES}
-Now that we have sufficiently described the schemes required for the purposes of this paper, they can now be incorporated into a hybrid encryption scheme. This process is quite straightforward.
+
+Now that we have sufficiently described the schemes required for the purposes of this paper, they can now be incorporated into a hybrid encryption scheme. 
+This process is quite straightforward.
+
 \begin{enumerate}
     \item First, keys are generated for ElGamal and AES, by the recipient and the sender respectively;
     \item\emph{KEM}: Then the symmetric key for AES  is encrypted using the ElGamal public key of the intended recipient to obtain the ciphertext $C=(A,B)$\textsuperscript{   }\footnote{Refer to the section on the description of the ElGamal encryption protocol for an explanation about the contents of the tuple $C$.};
