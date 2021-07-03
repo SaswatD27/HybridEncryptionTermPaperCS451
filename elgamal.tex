@@ -216,6 +216,8 @@ Now we shall give a very brief description of what goes down in each round of an
 \end{enumerate}
 In short, the ability to invert each step given the knowledge of the symmetric key involved will allow decryption of the ciphertext produced using AES.
 
+Note that due to the size of the key in AES, whether 256 bits or 128 towards the lower end (therefore giving us either $2^{128}, 2^{192},$ or $2^{256}$ many possible keys), brute forcing AES is close to impossible using currently available computational power, although other attacks have been discovered that compromised flawed implementations of AES and/or for lesser number of rounds of AES, so they are not considered to be of much concern in a practical sense at the moment.
+
 Now that we have introduced a suitable pair of symmetric key and asymmetric key cryptosystems, we can go on and describe the construction of a hybrid encryption scheme using the same.
 %\end{tcolorbox}
 \subsection{A Hybrid Encryption Scheme Based on ElGamal and AES}
