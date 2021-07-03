@@ -176,7 +176,7 @@ The ElGamal encryption protocol is an asymmetric scheme and as such, it must be 
 If an adversary Charlie convinces Alice otherwise that his key is indeed Bob's, then the communication channel is compromised and Charlie can then attack the scheme.
 Preventing this type of attack requires authentication of the key via certificates\footnote{We shall not discuss this for the sake of brevity.}.
 
-Another point for breaching the protocol is that the sending party's secret exponent \( a \) must not be reused.
+Another point to avoid breaching the protocol is that the sending party's secret exponent \( a \) must not be reused.
 
 \subsection{AES - A Symmetric Key Cryptosystem}
 
@@ -208,6 +208,7 @@ Now we shall give a very brief description of what goes down in each round of an
 \end{center}
 
 \begin{enumerate}
+    \setlength\itemsep{1em}
     \item \emph{Initial Round Key Addition}: The round key is added to each byte of the initial state by bitwise XOR;
     \item \emph{ByteSub}: The bytes in the input block are substituted by the means of the S-box (each byte is replaced by a byte obtained by the means of an $8$-bit substitution box) given in the design to produce a $4\times 4$ two (major order) dimensional array/state, the mathematics of which we will not go into, and this substitution introduces non-linearity into the cipher and this step is invertible for the sake of decryption;
     \item \emph{ShiftRow}: Then the rows of the state are shifted as follows
@@ -236,6 +237,7 @@ Now that we have sufficiently described the schemes required for the purposes of
 This process is quite straightforward.
 
 \begin{enumerate}
+    \setlength\itemsep{1em}
     \item First, keys are generated for ElGamal and AES, by the recipient and the sender respectively;
     \item\emph{KEM}: Then the symmetric key for AES  is encrypted using the ElGamal public key of the intended recipient to obtain the ciphertext $C=(A,B)$\textsuperscript{   }\footnote{Refer to the section on the description of the ElGamal encryption protocol for an explanation about the contents of the tuple $C$.};
     \item\emph{DEM}: Then the message plaintext is encrypted using AES with the key the sender generated earlier to get the ciphertext $C'$;
