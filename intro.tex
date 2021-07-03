@@ -56,15 +56,15 @@ Schemes that are secure against chosen cipher text attacks are called CCA secure
 
 An \emph{adaptive} chosen cipher-text attack is a chosen cipher-text attack scenario in which the attacker has the ability to make his or her choice of the inputs to the decryption function based on the previous chosen cipher-text queries.\\
 
-It is clear from the two definitions that an adaptive chosen cipher text attack is stronger, and schemes that are secure against such attacks are, known to be CCA2-secure.\\
+It is clear from the two definitions that an adaptive chosen cipher text attack is stronger, and schemes that are secure against such attacks are called CCA2-secure.\\
 
-In the context of hybrid encryption,CCA security of the hybrid system as a whole boils down to the security of the Key Encapsulation Mechanism (KEM) (the scheme that encrypts the symmetric key with the receiver's public key) and the data encapsulation mechanism (DEM) (scheme that encrypts the message with the symmetric key).
+In the context of hybrid encryption, CCA security of the hybrid system as a whole boils down to the security of the Key Encapsulation Mechanism (KEM) (the scheme that encrypts the symmetric key with the receiver's public key) and the data encapsulation mechanism (DEM) (scheme that encrypts the message with the symmetric key).
 It has been proven that, if both the KEM and DEM are CCA secure, then the hybrid system as a whole is CCA secure \cite{cryptoeprint:2001:108}.
 
 (A few years later, it was also shown that CCA security of KEM is in fact not a necessary condition for the CCA security for the hybrid system \cite{kuro_des}).
 
-A weaker notion of security, is security against chosen plain text attacks (\emph{a.k.a} CPA security).
+A weaker notion of security is security against chosen plain text attacks (\emph{a.k.a} CPA security).
 A chosen plaintext attack is when the attacker has the ability to choose messages and view their corresponding encryptions(the reverse of what happens in CCA).
 
-The main advantage of systems that are CPA secure, when compared to CCA secure systems, is that CPA secure systems are very practical as computationally, they are very viable to implement.
-(This is the main reason for the popularity of schemes like ELGamal, which has been proven to be CPA secure but not CCA secure.)
+The main advantage of systems that are CPA secure, when compared to CCA secure systems, is that CPA secure systems are very practical in terms of their usage as they are computationally viable to implement.
+(This is the main reason for the popularity of schemes like ElGamal, which has been proven to be CPA secure but not CCA secure.)
