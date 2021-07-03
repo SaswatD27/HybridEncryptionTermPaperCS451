@@ -33,16 +33,16 @@ This is implemented in the following way, given that the sender is named Alice a
 (This has been described in great and more precise detail by Cramer and Shoup (2003) \cite{cryptoeprint:2001:108})
 
 \begin{enumerate}
-\item Alice obtains Bob's public key;
-\item \textsc{DEM}: She then produces a fresh symmetric key $k_\text{symm}$ and then encrypts the message $m$ she wants to send using $k_\text{symm}$ to obtain a ciphertext $\chi$;
-\item \textsc{KEM}: Note that only Alice possesses $k_\symm$ at this point in time, so she encrypts $k_\symm$ using Bob's public key (which is convenient, because symmetric keys in practice are usually and ideally of small and manageable sizes, and thus appropriate for public key encryption) to get $\psi$;
-\item Alice sends $\bar\psi=(\psi,\chi)$ to Bob, and he decrypts it using his private key - first he verifies whether $\bar\psi$ properly encodes the tuple of ciphertexts $(\psi,\chi)$;
+    \setlength\itemsep{0.3cm}
+    \item Alice obtains Bob's public key;
+    \item \textsc{DEM}: She then produces a fresh symmetric key $k_\text{symm}$ and then encrypts the message $m$ she wants to send using $k_\text{symm}$ to obtain a ciphertext $\chi$;
+    \item \textsc{KEM}: Note that only Alice possesses $k_\symm$ at this point in time, so she encrypts $k_\symm$ using Bob's public key (which is convenient, because symmetric keys in practice are usually and ideally of small and manageable sizes, and thus appropriate for public key encryption) to get $\psi$;
+    \item Alice sends $\bar\psi=(\psi,\chi)$ to Bob, and he decrypts it using his private key - first he verifies whether $\bar\psi$ properly encodes the tuple of ciphertexts $(\psi,\chi)$;
 
-\begin{enumerate}
-\item If not, then $\bar\psi$ is rejected and the process halts;
-\item If yes, then $\psi$ is decrypted using Bob's private key; if this produces a reject, then the process is halted; if not, then he obtains the symmetric key $k_\symm$, using which he can decrypt $\chi$, the ciphertext pertaining to the message $m$, to get $m$ itself, if there's no issue that can possibly produce a reject.
-\end{enumerate}
-
+    \begin{enumerate}
+        \item If not, then $\bar\psi$ is rejected and the process halts;
+        \item If yes, then $\psi$ is decrypted using Bob's private key; if this produces a reject, then the process is halted; if not, then he obtains the symmetric key $k_\symm$, using which he can decrypt $\chi$, the ciphertext pertaining to the message $m$, to get $m$ itself, if there's no issue that can possibly produce a reject.
+    \end{enumerate}
 \end{enumerate}
 
 What this essentially does is make the hybrid key encryption scheme essentially a public key (i.e. asymmetric key) encryption scheme and share in the security definitions of the same.\\
@@ -63,7 +63,7 @@ It has been proven that, if both the KEM and DEM are CCA secure, then the hybrid
 
 (A few years later, it was also shown that CCA security of KEM is in fact not a necessary condition for the CCA security for the hybrid system \cite{kuro_des}).
 
-A weaker notion of security, is security against chosen plain text attacks (aka CPA security).
+A weaker notion of security, is security against chosen plain text attacks (\emph{a.k.a} CPA security).
 A chosen plaintext attack is when the attacker has the ability to choose messages and view their corresponding encryptions(the reverse of what happens in CCA).
 
 The main advantage of systems that are CPA secure, when compared to CCA secure systems, is that CPA secure systems are very practical as computationally, they are very viable to implement.

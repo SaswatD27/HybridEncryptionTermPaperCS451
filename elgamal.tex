@@ -198,7 +198,7 @@ It is worth noting that AES takes each the data in each block and treats it byte
 
 There exists a specified and fixed lookup table called the S-box given in the design which is used to substitute bytes of the plaintext block, which are represented by a two dimensional array as mentioned earlier, in each round.
 
-Now we shall give a very brief description of what goes down in each round of an implementation of AES, without getting too much into the mathematics or details of it as it will involve quite a bit of field theory and the like, and interested readers may take a look at \cite{RijndaelProp} for a detailed and well guided explanation of what AES does.\\
+Now we shall give a very brief description of what goes down in each round of an implementation of AES, without getting too much into the mathematics or details of it as it will involve quite a bit of field theory and the like, and interested readers may take a look at \cite{daemen1999aes} for a detailed and well guided explanation of what AES does.
 
 %\begin{tcolorbox}
 \emph{Key Expansion}: AES uses something called a key schedule (whose details have been omitted for the sake of brevity) to expand the given cipher key into a desired number of round keys, with the round key length being equal to the block length, for every round of transformation.
