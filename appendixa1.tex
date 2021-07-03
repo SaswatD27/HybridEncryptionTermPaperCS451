@@ -1,0 +1,71 @@
+\appendix
+\subsection{An overview of Group theory}
+\label{sec:appendix}
+\cite{koocmsc} defines an Abelian group $ \G $ as
+
+\begin{definition}
+An Abelian group $ \G $ is a finite set of elements along with an operation $ * $ such that:
+
+\begin{itemize}
+    \item \textbf{Closure} For all $ a, b \in \G $ we have $ a * b \in \G $. We use $ a * b $ as $ ab $ henceforth for brevity.
+    \item \textbf{Associativity} $ \forall a, b, c \in \G $, $ (ab)c = a(bc) $.
+    \item \textbf{Commutativity} $ \forall a, b \in \G $, $ ab = ba $.
+    \item \textbf{Existence of identity} $ \exists $ an element $ 1 \in \G $ such that $ 1 * a = a $ $ \forall a \in \G $. This element is the identity of $ \G $.
+    \item \textbf{Inverse} $ \forall a \in \G$, $ \exists $ an element $ a^{-1} \in \G $ such that $ aa^{-1} = 1 $.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}
+Let $\G$ be a finite Abelian group of order $ q $. Then $ a^q = 1 $ for all a $\in \G$.
+\end{theorem}
+
+\begin{proof}
+
+Taken from \cite{koocmsc}.
+
+Let us take $ a_1, \ldots a_q $ to be the elements of $\G$ and let $ a \in \G $ be some arbitrary element. We note that the sequence of elements $ aa_1, aa_2, \ldots , aa_q $ also contains exactly the elements of group $ \G $. Therefore:
+
+\begin{equation*}
+\begin{split}
+a_1 \cdot a_2 \cdot \cdot \cdot a_q
+&= (aa_1) \cdot (aa_2) \cdot \cdot \cdot (aa_q)\\
+&= a^q (a_1 \cdot a_2 \cdot \cdot \cdot a_q)
+\end{split}
+\end{equation*}
+
+On multiplying both sides by $ (a_1 \cdot \cdot \cdot a_q)^{-1} $, we get 
+
+\begin{equation*}
+a^q = 1
+\end{equation*}
+\end{proof}
+
+\begin{corollary}
+Let $ \G $ be a finite Abelian group of order $ q $, and let $ n $ be a positive integer.
+Then $ g^n = g^{n \mod q} $.
+\end{corollary}
+
+\begin{proof}
+
+Taken from \cite{koocmsc}.
+
+Let us write $ n = n_q \mod q $ so that $ n $ can be further written as $ n = aq + n_q $ for some $ a \in \mathbb{Z} $. Then, we have
+
+\begin{equation*}
+g^n = g^{aq+n_q} = (g^a)^q g^{n_q} = g^{n_q}
+\end{equation*}
+\end{proof}
+
+\begin{lemma}
+If $ \G $ is an Abelian group with prime order $ q $, then 
+\begin{enumerate}
+    \item $ \G $ is cyclic; furthermore,
+    \item every element of $ \G $ (except the identity) is a generator.
+\end{enumerate}
+\end{lemma}
+
+\subsection{Discrete Logarithm Problem}
+
+The problem can be described as follows: given a generator $ g $ of group $ \G $ and a random element $ h \in \G $, compute $ \log_g h $.
+
+A common reference is made to the \textit{discrete logarithm assumption}, which says that for most groups, the discrete logarithm problem is ``hard".
