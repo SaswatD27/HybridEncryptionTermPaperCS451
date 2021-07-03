@@ -181,7 +181,7 @@ Another point for breaching the protocol is that the sending party's secret expo
 \subsection{AES - A Symmetric Key Cryptosystem}
 Originally named the Rijndael algorithm after its creators, Vincent Rijmen and Joan Daemen, AES is a widely used block cipher and ergo uses a symmetric key, with a block size of 128 bits but with varying key sizes of 128, 192, and 256 bits.
 
-We shall not be going into a lot of detail about AES but we shall provide a very brief introduction to the same before we club it with ElGamal to produce a hybrid encryption scheme, which is due to Iavich et al.\cite{Iavich_Gnatyuk_Jintcharadze_Polishchuk_Odarchenko_2018}
+We shall not be going into a lot of detail about AES but we shall provide a very brief introduction to the same before we club it with ElGamal to produce a hybrid encryption scheme.
 
 AES is based on a design principle called a substitution-permutation network, and is implemented in several rounds/iterations, which in turn depend on the key size as follows,
 \begin{align*}
@@ -219,3 +219,11 @@ In short, the ability to invert each step given the knowledge of the symmetric k
 Now that we have introduced a suitable pair of symmetric key and asymmetric key cryptosystems, we can go on and describe the construction of a hybrid encryption scheme using the same.
 %\end{tcolorbox}
 \subsection{A Hybrid Encryption Scheme Based on ElGamal and AES}
+Now that we have sufficiently described the schemes required for the purposes of this paper, they can now be incorporated into a hybrid encryption scheme. This process is quite straightforward.
+\begin{enumerate}
+    \item First, keys are generated for ElGamal and AES, by the recipient and the sender respectively;
+    \item\emph{KEM}: Then the symmetric key for AES  is encrypted using the ElGamal public key of the intended recipient to obtain the ciphertext $C=(A,B)$\textsuperscript{   }\footnote{Refer to the section on the description of the ElGamal encryption protocol for an explanation about the contents of the tuple $C$.};
+    \item\emph{DEM}: Then the message plaintext is encrypted using AES with the key the sender generated earlier to get the ciphertext $C'$;
+    \item The message gets sent to the recipient, who can then apply ElGamal and AES decryption algorithms, in that order, to first decrypt $C$ using their secret ElGamal key to get the symmetric key for AES then use that to decrypt $C'$ to get the plaintext of the message.
+\end{enumerate}
+With this, we end up with a hybrid encryption scheme that combines ElGamal and AES and thus shares in both their security advantages.\footnote{One can refer to \cite{Iavich_Gnatyuk_Jintcharadze_Polishchuk_Odarchenko_2018} for a look at a ElGamal+AES based encryption scheme described by Iavich et al.}
